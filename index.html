@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>stoppeklokke</title>
+
+
+    <style>
+
+        body {
+            background-color: rgb(92, 110, 141);
+        }        
+
+        .timerknapper {
+            display: flex;
+            gap: 8px;
+        }
+
+        .timerknapper button, .timerknapper img {
+            width: 64px;
+            height: 64px;
+        }
+
+        .timerknapper button {
+            border: 2px solid black;
+            border-radius: 10px;
+        }
+        .timerknapper img {
+            width: 48px;
+            height: 48px;
+            padding-top: 5px;
+        }
+        
+        #pausetimerknapp { display: none; }
+        #pausetimerknapp.show { display: flex; }
+
+    </style>
+</head>
+<body>
+
+
+    <!-- Her er timer oppgaven for https://getacademy.moodlecloud.com/mod/wiki/view.php?pageid=108 -->
+    <!-- Du kan starte/pause/stoppe timeren. Den vil logge sekunder i konsollen. -->
+
+    <h1>Husk å åpne Console i inspect for å se sekunder</h1>
+
+    <div class="timerknapper">
+        <button onclick="startTimer()"><img src="IMAGES/start.png" alt=""></button>
+        <button class="stopptimerknapp" onclick="stopTimer()"><img src="IMAGES/stopp.png" alt=""></button>
+        <button id="pausetimerknapp" onclick="pauseTimer()"><img src="IMAGES/pause.png" alt=""></button>
+
+    </div>
+    
+
+    <div id="timer"></div>
+
+
+
+    <script>
+
+        let second = 0;
+        let timer = null;
+        
+
+        function secondtimer() {
+            second += 1
+            console.log(second)
+        }
+
+        function startTimer() {
+            if (timer === null) {
+                if (second == 0) {
+                    console.log("The timer has started!");
+                    document.getElementById('pausetimerknapp').classList.add('show');
+                }
+                else if (second >= 1){
+                    console.log("The timer has resumed");
+                }
+                timer = setInterval(secondtimer, 1000); 
+            }
+            else {
+                console.log("The timer is already running!")
+            }
+        }
+
+        function pauseTimer() {
+            if (timer !== null) {
+                clearInterval(timer);
+                timer = null;
+                console.log("The timer is paused");
+            }
+            else if (timer === null) {
+                timer = setInterval(secondtimer, 1000);
+                if (second >= 1) {
+                    console.log("The timer has resumed");
+                }
+            }
+        }
+
+        function stopTimer() {
+            if (timer !== null) {
+                clearInterval(timer);
+                timer = null;
+                console.log("Last second: ", second);
+                second = 0;
+                document.getElementById('pausetimerknapp').classList.remove('show');
+            }
+            else {
+                console.log("No Timer is on");
+            }
+        }
+
+    </script>
+</body>
+</html>
