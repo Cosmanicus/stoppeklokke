@@ -1,0 +1,1 @@
+Kjapp oppgave om stoppeklokka
